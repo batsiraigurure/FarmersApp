@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:paddingTop="40dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingBottom="30dp"
+    tools:context="gapps.com.farmersapp.MainActivity">
+
+    <ImageView
+        android:id="@+id/cropImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/crops1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@id/cropImageView"
+        android:layout_alignLeft="@id/cropImageView"
+        android:layout_alignEnd="@id/cropImageView"
+        android:layout_alignRight="@id/cropImageView"
+        android:layout_below="@+id/cropImageView"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:id="@+id/relativeLayout">
+
+
+        <EditText
+            android:id="@+id/firstnameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:hint="firstname"/>
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstnameEditText"
+            android:hint="email"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="240dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/emailEditText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_corner_button"
+            android:text="LOGIN"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="V1....."
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
