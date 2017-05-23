@@ -11,5 +11,10 @@
     tools:context="gapps.com.farmersapp.NavigationActivity"
     tools:showIn="@layout/app_bar_navigation">
 
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
 
 </RelativeLayout>

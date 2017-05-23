@@ -1,5 +1,6 @@
 package gapps.com.farmersapp;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -93,15 +93,24 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_weather_forecast_layout) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new WeatherForecastFragment())
+                    .commit();
+        } else if (id == R.id.nav_farmer_diary_layout) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new FarmersDiaryFragment())
+                    .commit();
+        } else if (id == R.id.nav_daily_tips_layout) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new DailyTipsFragment())
+                    .commit();
+        } else if (id == R.id.nav_market_prices_and_buyers_layout) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new MarketPricesAndBuyersFragment())
+                    .commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
