@@ -11,10 +11,17 @@ public class FarmersDiaryFragment extends Fragment{
 
     View myView;
 
+    public int dayInCycle;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.farmers_diary_layout, container, false);
+
+        /* convert what is in edittext to integer
+        dayInCycle = (myView.findViewById(R.id.dayEditText).toString());
+        */
+
         return myView;
     }
 }

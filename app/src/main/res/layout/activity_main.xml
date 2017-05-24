@@ -20,20 +20,20 @@
         app:srcCompat="@drawable/crops1"/>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@id/cropImageView"
-        android:layout_alignLeft="@id/cropImageView"
         android:layout_alignEnd="@id/cropImageView"
+        android:layout_alignLeft="@id/cropImageView"
+        android:layout_alignParentBottom="true"
         android:layout_alignRight="@id/cropImageView"
+        android:layout_alignStart="@id/cropImageView"
         android:layout_below="@+id/cropImageView"
         android:layout_marginBottom="20dp"
         android:background="@android:color/white"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:id="@+id/relativeLayout">
+        android:paddingRight="20dp">
 
 
         <EditText
@@ -48,8 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/firstnameEditText"
-            android:hint="email"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:hint="email"/>
 
         <Button
             android:id="@+id/loginButton"
