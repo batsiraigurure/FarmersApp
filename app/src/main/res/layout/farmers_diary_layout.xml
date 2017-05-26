@@ -11,13 +11,13 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:minHeight="50dp"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:paddingLeft="50dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Day in cycle: "
-            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:id="@+id/dayLabel"/>
 
@@ -27,8 +27,21 @@
             android:id="@+id/dayEditText"
             android:text="100"
             android:textSize="12sp"
+            android:layout_marginLeft="12dp"
             android:layout_toRightOf="@id/dayLabel"
             android:layout_centerVertical="true"/>
+        <Button
+            android:id="@+id/generateDiaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_toEndOf="@id/dayEditText"
+            android:layout_toRightOf="@id/dayEditText"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/rounded_corner_button2"
+            android:text="GENERATE DIARY"
+            android:textColor="@android:color/white"/>
+
 
     </RelativeLayout>
 
@@ -71,13 +84,29 @@
                 android:elevation="8dp"
                 android:minHeight="200dp">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Recent Activities"
-                    android:textSize="24sp"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Expected Completed Tasks"
+                        android:textSize="24sp"/>
+
+                    <TextView
+                        android:id="@+id/completedTasks"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
             </FrameLayout>
 
             <FrameLayout
@@ -95,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Activities To Come"
+                    android:text="To Do"
                     android:textSize="24sp"/>
             </FrameLayout>
 
