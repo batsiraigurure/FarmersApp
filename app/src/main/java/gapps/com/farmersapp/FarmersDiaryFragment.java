@@ -1,6 +1,7 @@
 package gapps.com.farmersapp;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ public class FarmersDiaryFragment extends Fragment{
     Button generateDiary;
     EditText day;
     TextView completedTasks;
+    TextView todoTasks;
 
     public int dayInCycle;
 
@@ -29,6 +31,9 @@ public class FarmersDiaryFragment extends Fragment{
         day = (EditText) myView.findViewById(R.id.dayEditText);
         generateDiary = (Button) myView.findViewById(R.id.generateDiaryButton);
         completedTasks = (TextView) myView.findViewById(R.id.completedTasks);
+        todoTasks = (TextView) myView.findViewById(R.id.todoTasks);
+
+        Toast.makeText(getActivity(), "Enter the number of day in the crop cycle then click VIEW DIARY", Toast.LENGTH_LONG).show();
 
         generateDiary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,18 +41,40 @@ public class FarmersDiaryFragment extends Fragment{
 
                 FarmActivities farmActivities = new FarmActivities();
 
+                completedTasks.setText("");
+                todoTasks.setText("");
+
                 dayInCycle = Integer.parseInt(day.getText().toString());
 
                 if(dayInCycle<20){
-                    //Display stage1 and stage2 as To Do
-                    completedTasks.setText("");
+                    StringBuilder builder = new StringBuilder();
+                    for (String details : farmActivities.allStages) {
+                        builder.append(">>" + details + "\n");
+                    }
+                    todoTasks.setText(builder.toString());
                 }
                 else if(dayInCycle>=20 && dayInCycle<50){
-                    completedTasks.setText(Arrays.toString(farmActivities.stage1));
-                    //display stage1 as completed and stage2 as To do
+                    StringBuilder builder = new StringBuilder();
+                    for (String details : farmActivities.stage1) {
+                        builder.append(">>" + details + "\n");
+                    }
+                    completedTasks.setText(builder.toString());
+
+                    StringBuilder strBuilder = new StringBuilder();
+                    for (String details : farmActivities.stage2) {
+                        strBuilder.append(">>" + details + "\n");
+                    }
+                    todoTasks.setText(strBuilder.toString());
+                    /*completedTasks.setText(Arrays.toString(farmActivities.stage1));
+                    todoTasks.setText(Arrays.toString(farmActivities.stage2));*/
                 }
                 else if(dayInCycle>=50){
-                    //Display stage1 and stage2 as completed
+                    StringBuilder builder = new StringBuilder();
+                    for (String details : farmActivities.allStages) {
+                        builder.append(">>" + details + "\n");
+                    }
+                    completedTasks.setText(builder.toString());
+                    //completedTasks.setText(Arrays.toString(farmActivities.allStages));
                 }
             }
         });
