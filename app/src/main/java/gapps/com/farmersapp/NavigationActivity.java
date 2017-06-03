@@ -53,6 +53,12 @@ public class NavigationActivity extends AppCompatActivity
         userTextView.setText(intent.getStringExtra(MainActivity.USERNAME));
         emailTextView.setText(intent.getStringExtra(MainActivity.EMAIL));
 
+        if (getFragmentManager().findFragmentById(R.id.content_frame) == null) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, new WeatherForecastFragment())
+                    .commit();
+        }
+
     }
 
     @Override
