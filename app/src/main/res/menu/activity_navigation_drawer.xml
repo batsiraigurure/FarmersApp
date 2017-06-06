@@ -4,31 +4,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_weather_forecast_layout"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_weather"
             android:title="Weather Forecast"/>
         <item
             android:id="@+id/nav_farmer_diary_layout"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_diary"
             android:title="Farmer's Diary"/>
         <item
             android:id="@+id/nav_daily_tips_layout"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_tips2"
             android:title="Daily Tips"/>
         <item
             android:id="@+id/nav_market_prices_and_buyers_layout"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_money"
             android:title="Market Prices and Buyers"/>
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share"/>
-            <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_send2"
                 android:title="Send"/>
         </menu>
     </item>

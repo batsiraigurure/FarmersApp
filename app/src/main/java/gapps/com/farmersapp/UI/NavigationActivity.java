@@ -1,4 +1,4 @@
-package gapps.com.farmersapp;
+package gapps.com.farmersapp.UI;
 
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import gapps.com.farmersapp.R;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -117,9 +119,7 @@ public class NavigationActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MarketPricesAndBuyersFragment())
                     .commit();
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        }  else if (id == R.id.nav_send) {
 
         }
 

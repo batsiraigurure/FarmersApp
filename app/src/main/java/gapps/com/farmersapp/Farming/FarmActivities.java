@@ -1,4 +1,4 @@
-package gapps.com.farmersapp;
+package gapps.com.farmersapp.Farming;
 
 public class FarmActivities {
     public String[] stage1 = new String[] {"Test soil PH", "Purchase inputs", "Initial tilling of land", "Seed planting"};

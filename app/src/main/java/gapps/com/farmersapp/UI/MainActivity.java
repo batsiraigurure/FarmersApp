@@ -1,4 +1,4 @@
-package gapps.com.farmersapp;
+package gapps.com.farmersapp.UI;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import gapps.com.farmersapp.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package gapps.com.farmersapp;
+package gapps.com.farmersapp.UI;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DailyTipsFragment extends Fragment{
+import gapps.com.farmersapp.R;
+
+public class MarketPricesAndBuyersFragment extends Fragment{
 
     View myView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.daily_tips_layout, container, false);
+        myView = inflater.inflate(R.layout.market_prices_and_buyers_layout, container, false);
         return myView;
     }
 }

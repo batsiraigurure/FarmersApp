@@ -1,4 +1,4 @@
-package gapps.com.farmersapp;
+package gapps.com.farmersapp.UI;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,13 +28,17 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
+import gapps.com.farmersapp.R;
+import gapps.com.farmersapp.Weather.Current;
+import gapps.com.farmersapp.Weather.Day;
+import gapps.com.farmersapp.Weather.Forecast;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -47,7 +52,7 @@ public class WeatherForecastFragment extends Fragment implements
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private CurrentWeather mCurrentWeather;
+    private Forecast mForecast;
 
     View myView;
     TextView locationTextView;
@@ -63,6 +68,7 @@ public class WeatherForecastFragment extends Fragment implements
     private double currentLatitude;
     private double currentLongitude;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +77,9 @@ public class WeatherForecastFragment extends Fragment implements
         temperatureTextView = (TextView) myView.findViewById(R.id.temperatureTextView);
         iconImageView = (ImageView) myView.findViewById(R.id.iconImageView);
         precipChanceTextView = (TextView) myView.findViewById(R.id.precipChanceTextview);
+
+        ListView listView = (ListView)myView.findViewById(android.R.id.list);
+
 
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 // The next two lines tell the new client that “this” current class will handle connection stuff
@@ -105,6 +114,7 @@ public class WeatherForecastFragment extends Fragment implements
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    Toast.makeText(getActivity(), "Callback failed: " + e, Toast.LENGTH_LONG).show();
 
                 }
 
@@ -114,7 +124,10 @@ public class WeatherForecastFragment extends Fragment implements
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-                            mCurrentWeather = getCurrentDetails(jsonData);
+                            mForecast = parseForecastDetails(jsonData);
+                            if(getActivity()==null)
+                            {return;}
+
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -141,27 +154,59 @@ public class WeatherForecastFragment extends Fragment implements
     }
 
     private void updateDisplay() {
-        temperatureTextView.setText(mCurrentWeather.getTemperature()+" Deg F");
-        precipChanceTextView.setText(mCurrentWeather.getPrecipChance()+" %");
+        Current current = mForecast.getCurrent();
+        temperatureTextView.setText(current.getTemperature()+" Deg F");
+        precipChanceTextView.setText(current.getPrecipChance()+" %");
 
-        Drawable drawable = getResources().getDrawable(mCurrentWeather.getIconId());
+        Drawable drawable = getResources().getDrawable(current.getIconId());
         iconImageView.setImageDrawable(drawable);
     }
 
-    private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
+    private Forecast parseForecastDetails(String jsonData)throws JSONException {
+        Forecast forecast = new Forecast();
+
+        forecast.setCurrent(getCurrentDetails(jsonData));
+        forecast.setDailyForecast(getDailyForecast(jsonData));
+
+        return forecast;
+    }
+
+    private Day[] getDailyForecast(String jsonData) throws JSONException{
+        JSONObject forecast = new JSONObject(jsonData);
+
+        JSONObject daily = forecast.getJSONObject("daily");
+        JSONArray data = daily.getJSONArray("data");
+
+        Day[] days = new Day[data.length()];
+
+        for(int i = 0; i<data.length();i++){
+            JSONObject jsonDay = data.getJSONObject(i);
+            Day day = new Day();
+
+            day.setSummary(jsonDay.getString("summary"));
+            day.setIcon(jsonDay.getString("icon"));
+            day.setTemperatureMax(jsonDay.getDouble("temperatureMax"));
+
+            days[i] = day;
+        }
+
+        return days;
+    }
+
+    private Current getCurrentDetails(String jsonData) throws JSONException {
         JSONObject forecast = new JSONObject(jsonData);
         String timezone = forecast.getString("timezone");
         Log.i(TAG, "From JSON: " + timezone);
 
         JSONObject currently = forecast.getJSONObject("currently");
 
-        CurrentWeather currentWeather = new CurrentWeather();
-        currentWeather.setTemperature(currently.getDouble("temperature"));
-        currentWeather.setPrecipChance(currently.getDouble("precipProbability"));
-        currentWeather.setIcon(currently.getString("icon"));
-        currentWeather.setSummary(currently.getString("summary"));
+        Current current = new Current();
+        current.setTemperature(currently.getDouble("temperature"));
+        current.setPrecipChance(currently.getDouble("precipProbability"));
+        current.setIcon(currently.getString("icon"));
+        current.setSummary(currently.getString("summary"));
 
-        return currentWeather;
+        return current;
     }
 
     private boolean isNetworkAvailable() {
@@ -177,7 +222,7 @@ public class WeatherForecastFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        //Now lets connect to the API
+        //Connect to the API
         mGoogleApiClient.connect();
     }
 
@@ -197,13 +242,7 @@ public class WeatherForecastFragment extends Fragment implements
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            Toast.makeText(getActivity(), "Please grant the necessary permissions!", Toast.LENGTH_LONG).show();
             return;
         }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -227,6 +266,8 @@ public class WeatherForecastFragment extends Fragment implements
     @Override
     public void onConnectionSuspended(int i) {
 
+        Toast.makeText(getActivity(), "Connection suspended...", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -247,7 +288,7 @@ public class WeatherForecastFragment extends Fragment implements
                      */
             } catch (IntentSender.SendIntentException e) {
                 // Log the error
-                e.printStackTrace();
+                Log.e(TAG, "Exception caught: " + e);
             }
         } else {
                 /*
