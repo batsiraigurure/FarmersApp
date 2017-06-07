@@ -59,6 +59,8 @@ public class WeatherForecastFragment extends Fragment implements
     TextView temperatureTextView;
     ImageView iconImageView;
     TextView precipChanceTextView;
+    TextView summaryTextView;
+    TextView toDoTodayTextView;
 
     //Define a request code to send to Google Play services
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -77,6 +79,8 @@ public class WeatherForecastFragment extends Fragment implements
         temperatureTextView = (TextView) myView.findViewById(R.id.temperatureTextView);
         iconImageView = (ImageView) myView.findViewById(R.id.iconImageView);
         precipChanceTextView = (TextView) myView.findViewById(R.id.precipChanceTextview);
+        summaryTextView = (TextView) myView.findViewById(R.id.summaryTextView);
+        toDoTodayTextView = (TextView) myView.findViewById(R.id.toDoTodayTextView);
 
         ListView listView = (ListView)myView.findViewById(android.R.id.list);
 
@@ -155,8 +159,15 @@ public class WeatherForecastFragment extends Fragment implements
 
     private void updateDisplay() {
         Current current = mForecast.getCurrent();
-        temperatureTextView.setText(current.getTemperature()+" Deg F");
-        precipChanceTextView.setText(current.getPrecipChance()+" %");
+        temperatureTextView.setText(current.getTemperature()+"\u2109");
+        precipChanceTextView.setText(current.getPrecipChance()+" % Rain");
+        summaryTextView.setText(current.getSummary());
+
+        if(current.getPrecipChance()>50){
+            toDoTodayTextView.setText("What to do today: Prepare for a rainy day today");
+        }else{
+            toDoTodayTextView.setText("What to do today: Today will likely be a dry day. Make arrangements to irrigate");
+        }
 
         Drawable drawable = getResources().getDrawable(current.getIconId());
         iconImageView.setImageDrawable(drawable);

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="#90df7e" >
+        android:background="#90df7e"
+        android:minHeight="50dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,33 +22,7 @@
             android:text="Current location ............."
             android:textColor="#000"
             android:textSize="20sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/temperatureTextView"
-            android:layout_below="@id/locationTextView"
-            android:layout_toLeftOf="@+id/iconImageView"
-            android:text="-- Deg C"
-            android:textColor="#000"
-            android:textSize="20sp" />
-        <ImageView
-            android:id="@+id/iconImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/snow"
-            android:layout_below="@+id/locationTextView"
-            android:layout_marginLeft="45dp"
-            android:layout_centerHorizontal="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/precipChanceTextview"
-            android:layout_below="@+id/locationTextView"
-            android:layout_toRightOf="@+id/iconImageView"
-            android:text="--%"
-            android:textSize="20sp"
-            android:textColor="#000"
-            android:layout_marginLeft="45dp"/>
+
     </RelativeLayout>
 
     <!-- Footer aligned to bottom -->
@@ -57,11 +32,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#90df7e"
-        android:gravity="center" >
+        android:gravity="center"
+        android:minHeight="150dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/toDoTodayTextView"
             android:layout_margin="5dp"
             android:text="What to do today: ................................................................."
             android:textColor="#000"
@@ -78,20 +55,51 @@
         android:background="@drawable/bg_gradient"
         android:layout_below="@id/header" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:paddingTop="50dp">
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@android:id/list"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/temperatureTextView"
+                android:text="-- ℉"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColor="#000"
+                android:textSize="60sp"/>
+            <ImageView
+                android:id="@+id/iconImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/snow"
+                android:layout_toLeftOf="@+id/temperatureTextView"
+                android:layout_toStartOf="@+id/temperatureTextView"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/precipChanceTextview"
+                android:layout_toRightOf="@+id/temperatureTextView"
+                android:layout_toEndOf="@+id/temperatureTextView"
+                android:text="--%"
+                android:textSize="35sp"
+                android:textColor="#000"/>
 
-
-
-        </LinearLayout>
+            <TextView
+                android:id="@+id/summaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/temperatureTextView"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:text="Summary"
+                android:textSize="30sp"/>
+        </RelativeLayout>
 
     </ScrollView>
+
+
 
 </RelativeLayout>

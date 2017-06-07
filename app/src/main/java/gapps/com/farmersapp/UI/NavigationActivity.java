@@ -2,6 +2,7 @@ package gapps.com.farmersapp.UI;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,14 +31,14 @@ public class NavigationActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -115,10 +116,14 @@ public class NavigationActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new DailyTipsFragment())
                     .commit();
+            Intent intentf=new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.cfuzim.org/index.php/farming-tips/maize"));
+            startActivity(intentf);
         } else if (id == R.id.nav_market_prices_and_buyers_layout) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MarketPricesAndBuyersFragment())
                     .commit();
+            Intent intentm=new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.gmbdura.com/gmbdura/FarmerSupportServices"));
+            startActivity(intentm);
         }  else if (id == R.id.nav_send) {
 
         }
